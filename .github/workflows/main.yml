@@ -14,12 +14,6 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Set up JDK
-      uses: actions/setup-java@v3
-      with:
-        java-version: '11' # Specify your Java version here
-        distribution: 'adopt-openjdk'
-
     - name: Compile with Maven
       run: mvn compile
 
