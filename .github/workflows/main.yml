@@ -26,6 +26,7 @@ jobs:
         # Update the pom.xml with the new version
         mvn versions:set -DnewVersion=${new_version}-SNAPSHOT -f pom.xml
         mvn versions:commit
+        mvn versions:push
         # Verify the version change
         updated_version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
         echo "Updated version in pom.xml: $updated_version"
