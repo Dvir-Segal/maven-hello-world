@@ -86,7 +86,7 @@ jobs:
     - name: Run Docker Image
       id: run_docker
       run: |
-        docker run --name myapp-container -d ${{ secrets.DOCKER_USERNAME }}/myapp:${{ env.new_version }}
+        docker run --name string myapp-container-{{ env.new_version }} -d dvirdock/myapp:${{ env.new_version }}
         docker logs myapp-container
 
     # - name: Clean Up Docker
