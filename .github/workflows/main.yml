@@ -56,3 +56,29 @@ jobs:
       with:
         name: myapp
         path: myapp/target/*.jar
+
+
+    - name: Create Dockerfile
+      id: create_dockerfile
+      run: |
+        echo "FROM openjdk:11-jre-slim" > Dockerfile
+        echo "WORKDIR /app" >> Dockerfile
+        echo "COPY myapp/target/myapp-${{ env.new_version }}-SNAPSHOT.jar /app/" >> Dockerfile
+        echo "USER 1000:1000" >> Dockerfile
+        echo "ENTRYPOINT [\"java\", \"-jar\", \"myapp-${{ env.new_version }}-SNAPSHOT.jar\"]" >> Dockerfile
+
+    - name: Build Docker Image
+      id: build_docker_image
+      run: |
+        docker build -t myapp:${{ env.new_version }} .
+
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Push Docker Image
+      run: |
+        docker tag myapp:${{ env.new_version }} ${{ secrets.DOCKER_USERNAME }}/myapp:${{ env.new_version }}
+        docker push ${{ secrets.DOCKER_USERNAME }}/myapp:${{ env.new_version }}
