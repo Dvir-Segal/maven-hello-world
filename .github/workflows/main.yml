@@ -33,5 +33,5 @@ jobs:
     - name: Package with Maven
       run: cd myapp && mvn package
 
-    - name: Print Hi
-      run: java --version
+    - name: Print list
+      run: cd myapp/traget && ls -l
