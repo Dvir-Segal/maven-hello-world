@@ -18,4 +18,4 @@ jobs:
       run: cd myapp && mvn compile
 
     - name: Package with Maven
-      run: mvn package
+      run: cd myapp && mvn package
