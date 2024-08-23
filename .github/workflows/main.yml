@@ -87,7 +87,10 @@ jobs:
       id: run_docker
       run: |
         docker run --name myapp-container-${{ env.new_version }} -d dvirdock/myapp:${{ env.new_version }}
-        docker logs myapp-container
+        # Wait for the container to start
+        sleep 5
+        # Fetch logs to check if the application is running correctly
+        docker logs myapp-container-${{ env.new_version }}
 
     # - name: Clean Up Docker
     #   run: |
