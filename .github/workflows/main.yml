@@ -30,6 +30,7 @@ jobs:
         # Verify the version change
         updated_version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
         echo "Updated version in pom.xml: $updated_version"
+        echo "new_version=${new_version}" >> $GITHUB_ENV
 
     - name: Commit and Push Version Change
       run: |
@@ -37,7 +38,7 @@ jobs:
         git config user.name "Dvir-Segal"
         git config user.email "dvirsegal96@gmail.com"
         git add pom.xml
-        git commit -m "Bump version to ${new_version}-SNAPSHOT"
+        git commit -m "Bump version to ${{ env.new_version }}-SNAPSHOT"
         git push
 
 
@@ -47,8 +48,8 @@ jobs:
     - name: Package with Maven
       run: cd myapp && mvn package
 
-    - name: Print list
-      run: cd myapp/target && java -cp myapp-${new_version}-SNAPSHOT.jar com.myapp.App
+    - name: Print Hello
+      run: cd myapp/target && java -cp myapp-${{ env.new_version }}-SNAPSHOT.jar com.myapp.App
 
     - name: Upload JAR Artifact
       uses: actions/upload-artifact@v3
