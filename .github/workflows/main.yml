@@ -24,12 +24,21 @@ jobs:
         new_version=$(echo $current_version | awk -F. -v OFS=. '{$NF++;print}')
         echo "New version: $new_version"
         # Update the pom.xml with the new version
-        # mvn versions:set -DnewVersion=${new_version}-SNAPSHOT -f pom.xml
-        mvn release:update-versions -DdevelopmentVersion=${new_version}-SNAPSHOT
+        mvn versions:set -DnewVersion=${new_version}-SNAPSHOT -DgenerateBackupPoms=false
         mvn versions:commit
         # Verify the version change
         updated_version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
         echo "Updated version in pom.xml: $updated_version"
+
+    - name: Commit and Push Version Change
+      run: |
+        cd myapp
+        git config user.name "Dvir-Segal"
+        git config user.email "dvirsegal96@gmail.com"
+        git add pom.xml
+        git commit -m "Bump version to ${new_version}-SNAPSHOT"
+        git push
+
 
     - name: Compile with Maven
       run: cd myapp && mvn compile
