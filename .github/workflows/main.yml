@@ -17,6 +17,7 @@ jobs:
     - name: Increase Patch Version
       run: |
         cd myapp
+        git pull
         # Get current version
         current_version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
         echo "Current version: $current_version"
