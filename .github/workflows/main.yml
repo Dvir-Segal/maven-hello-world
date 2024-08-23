@@ -48,8 +48,8 @@ jobs:
     - name: Package with Maven
       run: cd myapp && mvn package
 
-    - name: Print Hello
-      run: cd myapp/target && java -cp myapp-${{ env.new_version }}-SNAPSHOT.jar com.myapp.App
+    # - name: Print Hello
+    #   run: cd myapp/target && java -cp myapp-${{ env.new_version }}-SNAPSHOT.jar com.myapp.App
 
     - name: Upload JAR Artifact
       uses: actions/upload-artifact@v3
@@ -92,7 +92,7 @@ jobs:
         # Fetch logs to check if the application is running correctly
         docker logs myapp-container-${{ env.new_version }}
 
-    # - name: Clean Up Docker
-    #   run: |
-    #     docker stop myapp-container
-    #     docker rm myapp-container
+    - name: Clean Up Docker
+      run: |
+        docker stop myapp-container*
+        docker rm myapp-container*
