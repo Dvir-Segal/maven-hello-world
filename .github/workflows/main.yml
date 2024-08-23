@@ -75,8 +75,8 @@ jobs:
     - name: Log in to Docker Hub
       uses: docker/login-action@v2
       with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
+        username: dvirdock
+        password: Centos925
 
     - name: Push Docker Image
       run: |
