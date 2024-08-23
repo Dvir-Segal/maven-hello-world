@@ -14,6 +14,12 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
+    - name: Increase Patch Version
+      run: |
+        cd myapp
+        mvn versions:set -DnewVersion=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout | awk -F. -v OFS=. '{$NF++;print}')
+        mvn versions:commit
+
     - name: Compile with Maven
       run: cd myapp && mvn compile
 
