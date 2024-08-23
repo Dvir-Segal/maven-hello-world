@@ -82,3 +82,14 @@ jobs:
       run: |
         docker tag myapp:${{ env.new_version }} dvirdock/myapp:${{ env.new_version }}
         docker push dvirdock/myapp:${{ env.new_version }}
+
+    - name: Run Docker Image
+      id: run_docker
+      run: |
+        docker run --name myapp-container -d ${{ secrets.DOCKER_USERNAME }}/myapp:${{ env.new_version }}
+        docker logs myapp-container
+
+    # - name: Clean Up Docker
+    #   run: |
+    #     docker stop myapp-container
+    #     docker rm myapp-container
