@@ -92,7 +92,8 @@ jobs:
         # Fetch logs to check if the application is running correctly
         docker logs myapp-container-${{ env.new_version }}
 
-    - name: Clean Up Docker
+    - name: Clean Up Docker Containers
       run: |
-        docker stop myapp-container*
-        docker rm myapp-container*
+        # Stop and remove all containers with the prefix "myapp-container"
+        docker ps -a --filter "name=myapp-container" -q | xargs -r docker stop
+        docker ps -a --filter "name=myapp-container" -q | xargs -r docker rm
