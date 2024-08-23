@@ -48,7 +48,7 @@ jobs:
       run: cd myapp && mvn package
 
     - name: Print list
-      run: cd myapp/target && java -cp myapp-1.0.1-SNAPSHOT.jar com.myapp.App
+      run: cd myapp/target && java -cp myapp-${new_version}-SNAPSHOT.jar com.myapp.App
 
     - name: Upload JAR Artifact
       uses: actions/upload-artifact@v3
