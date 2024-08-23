@@ -26,6 +26,9 @@ jobs:
         # Update the pom.xml with the new version
         mvn versions:set -DnewVersion=${new_version}-SNAPSHOT
         mvn versions:commit
+        # Verify the version change
+        new_version_in_pom=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+        echo "Updated version in pom.xml: $new_version_in_pom"
 
     - name: Compile with Maven
       run: cd myapp && mvn compile
