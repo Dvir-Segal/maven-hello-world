@@ -17,7 +17,14 @@ jobs:
     - name: Increase Patch Version
       run: |
         cd myapp
-        mvn versions:set -DnewVersion=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout | awk -F. -v OFS=. '{$NF++;print}')
+        # Get current version
+        current_version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+        echo "Current version: $current_version"
+        # Increment the patch version
+        new_version=$(echo $current_version | awk -F. -v OFS=. '{$NF++;print}')
+        echo "New version: $new_version"
+        # Update the pom.xml with the new version
+        mvn versions:set -DnewVersion=${new_version}-SNAPSHOT
         mvn versions:commit
 
     - name: Compile with Maven
