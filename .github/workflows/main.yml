@@ -24,7 +24,7 @@ jobs:
         new_version=$(echo $current_version | awk -F. -v OFS=. '{$NF++;print}')
         echo "New version: $new_version"
         # Update the pom.xml with the new version
-        mvn versions:set -DnewVersion=${new_version}-SNAPSHOT
+        mvn versions:set -DnewVersion=${new_version}-SNAPSHOT -DgenerateBackupPoms=false
         mvn versions:commit
         # Verify the version change
         updated_version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
