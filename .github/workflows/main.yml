@@ -55,8 +55,7 @@ jobs:
         echo "WORKDIR /app" >> Dockerfile
         echo "COPY myapp/target/myapp-${{ env.new_version }}-SNAPSHOT.jar /app/" >> Dockerfile
         echo "USER 1000:1000" >> Dockerfile
-        echo "ENTRYPOINT [\"java\", \"-jar\", \"myapp-${{ env.new_version }}-SNAPSHOT.jar\"]" >> Dockerfile
-        echo "CMD ["sh", "-c", "sleep infinity"]" >> Dockerfile
+        echo "ENTRYPOINT ["java", "-jar", "myapp-${{ env.new_version }}-SNAPSHOT.jar"]" >> Dockerfile
 
     - name: Build Docker Image
       id: build_docker_image
