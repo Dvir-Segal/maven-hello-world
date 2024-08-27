@@ -54,7 +54,6 @@ jobs:
         echo "FROM openjdk:11-jre-slim" > Dockerfile
         echo "USER 1000:1000" >> Dockerfile
         echo "WORKDIR /app" >> Dockerfile
-        echo "RUN apt-get update apt-get install" >> Dockerfile
         echo "ENTRYPOINT [\"java\", \"-jar\", \"myapp-${{ env.new_version }}-SNAPSHOT.jar\"]" >> Dockerfile
 
     - name: Build Docker Image
