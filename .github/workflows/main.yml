@@ -48,20 +48,32 @@ jobs:
     - name: Package with Maven
       run: cd myapp && mvn package
 
+    # - name: Create Dockerfile
+    #   id: create_dockerfile
+    #   run: |
+    #     #Stage 1
+    #     echo "FROM openjdk:11-jre-slim as builder" > Dockerfile
+    #     echo "WORKDIR /app" >> Dockerfile
+    #     echo "COPY myapp/target/myapp-${{ env.new_version }}-SNAPSHOT.jar /app/" >> Dockerfile
+    #     echo "RUN echo 'hello' > file.html" >> Dockerfile
+    #     echo "USER 1000:1000" >> Dockerfile
+    #     echo "ENTRYPOINT [\"java\", \"-jar\", \"myapp-${{ env.new_version }}-SNAPSHOT.jar\"]" >> Dockerfile
+
     - name: Create Dockerfile
       id: create_dockerfile
       run: |
-        #Stage 1
+        # Stage 1
         echo "FROM openjdk:11-jre-slim as builder" > Dockerfile
         echo "WORKDIR /app" >> Dockerfile
         echo "COPY myapp/target/myapp-${{ env.new_version }}-SNAPSHOT.jar /app/" >> Dockerfile
         echo "RUN echo 'hello' > file.html" >> Dockerfile
         echo "USER 1000:1000" >> Dockerfile
         echo "ENTRYPOINT [\"java\", \"-jar\", \"myapp-${{ env.new_version }}-SNAPSHOT.jar\"]" >> Dockerfile
-
-        # #Stage 2
-        echo "FROM nginx:alpine" > Dockerfile
+    
+        # Stage 2
+        echo "FROM nginx:alpine" >> Dockerfile
         echo "COPY --from=builder /app/file.html /usr/share/nginx/html/index.html" >> Dockerfile
+
         
 
         
