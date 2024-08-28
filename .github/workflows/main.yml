@@ -51,26 +51,32 @@ jobs:
     - name: Create Dockerfile
       id: create_dockerfile
       run: |
-        echo "FROM openjdk:11-jre-slim" > Dockerfile
-        echo "WORKDIR /app" >> Dockerfile
-        echo "COPY myapp/target/myapp-${{ env.new_version }}-SNAPSHOT.jar /app/" >> Dockerfile
-        # Create the file with the message
-        echo 'RUN echo "Hello, this is my 1.0.48 attempt, I\'m here!" > /file.txt' >> Dockerfile
-        echo 'RUN mv /file.txt /file.html' >> Dockerfile
-        echo "USER 1000:1000" >> Dockerfile
-        echo "ENTRYPOINT [\"java\", \"-jar\", \"myapp-${{ env.new_version }}-SNAPSHOT.jar\"]" >> Dockerfile
-
-        # Stage 2: Setup Nginx to serve the file
-        echo "FROM nginx:alpine" >> Dockerfile
-  
-        # Copy the file from the previous stage
-        echo "COPY --from=builder /file.html /usr/share/nginx/html/index.html" >> Dockerfile
+        echo 'FROM openjdk:11-jre-slim' >> Dockerfile
+        echo 'WORKDIR /app' >> Dockerfile
+        echo 'COPY myapp/target/myapp-1.0.48-SNAPSHOT.jar /app/' >> Dockerfile
         
-        # Expose port 80 to access the web server
+        # Add a stage to create the file with the message
+        echo 'RUN echo "Hello, this is my ${{ env.new_version }} attempt, I\'m here!" > /file.txt' >> Dockerfile
+        echo 'RUN mv /file.txt /file.html' >> Dockerfile
+        
+        # Specify the user
+        echo 'USER 1000:1000' >> Dockerfile
+        
+        # Define the entry point
+        echo 'ENTRYPOINT ["java", "-jar", "myapp-1.0.48-SNAPSHOT.jar"]' >> Dockerfile
+        
+        # Add the Nginx stage
+        echo 'FROM nginx:alpine' >> Dockerfile
+        
+        # Copy the file from the previous stage
+        echo 'COPY --from=builder /file.html /usr/share/nginx/html/index.html' >> Dockerfile
+        
+        # Expose port 80
         echo 'EXPOSE 80' >> Dockerfile
         
         # Default command to run Nginx
         echo 'CMD ["nginx", "-g", "daemon off;"]' >> Dockerfile
+
 
         
 
