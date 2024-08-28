@@ -66,7 +66,7 @@ jobs:
         echo "COPY myapp/target/myapp-${{ env.new_version }}-SNAPSHOT.jar /app/" >> Dockerfile
         echo "COPY myapp/webserver.py /app/" >> Dockerfile
         echo "USER 1000:1000" >> Dockerfile
-        echo "CMD [\"sh\", \"-c\", \"python3 /app/webserver.py & java -jar myapp-${{ env.new_version }}-SNAPSHOT.jar && sleep 60\"]" >> Dockerfile
+        echo "CMD [\"sh\", \"-c\", \"python3 /app/webserver.py && java -jar myapp-${{ env.new_version }}-SNAPSHOT.jar && sleep 60\"]" >> Dockerfile
 
     - name: Build Docker Image
       id: build_docker_image
