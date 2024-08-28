@@ -100,7 +100,7 @@ jobs:
       uses: docker/login-action@v2
       with:
         username: dvirdock
-        password: "${{ secrets.DOCKER_PASWORD }}"
+        password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Push Docker Image
       run: |
