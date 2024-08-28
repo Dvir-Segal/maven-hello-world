@@ -54,8 +54,24 @@ jobs:
         echo "FROM openjdk:11-jre-slim" > Dockerfile
         echo "WORKDIR /app" >> Dockerfile
         echo "COPY myapp/target/myapp-${{ env.new_version }}-SNAPSHOT.jar /app/" >> Dockerfile
+        # Create the file with the message
+        echo "RUN echo "Hello, this is my ${{ env.new_version }} attemption, I'm here!" > /file.txt" >> Dockerfile
+        # Rename the file to index.html
+        echo "RUN mv /file.txt /file.html" >> Dockerfile
         echo "USER 1000:1000" >> Dockerfile
         echo "ENTRYPOINT [\"java\", \"-jar\", \"myapp-${{ env.new_version }}-SNAPSHOT.jar\"]" >> Dockerfile
+
+        # Stage 2: Setup Nginx to serve the file
+        FROM nginx:alpine
+  
+        # Copy the file from the previous stage
+        COPY --from=builder /file.html /usr/share/nginx/html/index.html
+        
+        # Expose port 80 to access the web server
+        EXPOSE 80
+        
+        # Default command to run Nginx
+        CMD ["nginx", "-g", "daemon off;"]
 
         
 
