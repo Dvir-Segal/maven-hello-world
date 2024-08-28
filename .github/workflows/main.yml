@@ -70,11 +70,11 @@ jobs:
         echo "USER 1000:1000" >> Dockerfile
         echo "ENTRYPOINT [\"java\", \"-jar\", \"myapp-${{ env.new_version }}-SNAPSHOT.jar\"]" >> Dockerfile
     
-        # Stage 2
-        echo "FROM nginx:alpine" >> Dockerfile
-        echo "COPY --from=builder /app/file.html /usr/share/nginx/html/index.html" >> Dockerfile
-        echo "EXPOSE 80" >> Dockerfile
-        echo "CMD [\"nginx\", \"-g\", \"daemon off;\"]" >> Dockerfile
+        # # Stage 2
+        # echo "FROM nginx:alpine" >> Dockerfile
+        # echo "COPY --from=builder /app/file.html /usr/share/nginx/html/index.html" >> Dockerfile
+        # echo "EXPOSE 80" >> Dockerfile
+        # echo "CMD [\"nginx\", \"-g\", \"daemon off;\"]" >> Dockerfile
 
         
 
