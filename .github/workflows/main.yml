@@ -67,10 +67,10 @@ jobs:
         echo "COPY --from=builder /file.html /usr/share/nginx/html/index.html" >> Dockerfile
         
         # Expose port 80 to access the web server
-        echo "EXPOSE 80" >> Dockerfile
+        echo 'EXPOSE 80' >> Dockerfile
         
         # Default command to run Nginx
-        echo "CMD ["nginx", "-g", "daemon off;"]" >> Dockerfile
+        echo 'CMD ["nginx", "-g", "daemon off;"]' >> Dockerfile
 
         
 
