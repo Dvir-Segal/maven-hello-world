@@ -52,6 +52,7 @@ jobs:
       id: create_dockerfile
       run: |
         echo "FROM openjdk:11-jre-slim" > Dockerfile
+        echo "RUN apk add --no-cache bash" >> Dockerfile
         echo "WORKDIR /app" >> Dockerfile
         echo "COPY myapp/target/myapp-${{ env.new_version }}-SNAPSHOT.jar /app/" >> Dockerfile
         echo "USER 1000:1000" >> Dockerfile
