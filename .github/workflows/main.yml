@@ -69,7 +69,7 @@ jobs:
     - name: Build Docker Image
       id: build_docker_image
       run: |
-        cd myapp && docker build --build-arg NEW_VERSION=${{ env.new_version }}-t myapp:${{ env.new_version }} .
+        cd myapp && docker build --build-arg NEW_VERSION=${{ env.new_version }} -t myapp:${{ env.new_version }} .
 
     - name: Log in to Docker Hub
       uses: docker/login-action@v2
