@@ -73,6 +73,8 @@ jobs:
         # Stage 2
         echo "FROM nginx:alpine" >> Dockerfile
         echo "COPY --from=builder /app/file.html /usr/share/nginx/html/index.html" >> Dockerfile
+        echo "EXPOSE 80" >> Dockerfile
+        echo "CMD [\"nginx\", \"-g\", \"daemon off;\"]" >> Dockerfile
 
         
 
