@@ -51,14 +51,23 @@ jobs:
     - name: Create Dockerfile
       id: create_dockerfile
       run: |
+        # echo "FROM openjdk:11-jre-slim" > Dockerfile
+        # echo "WORKDIR /app" >> Dockerfile
+        # echo "COPY myapp/target/myapp-${{ env.new_version }}-SNAPSHOT.jar /app/" >> Dockerfile
+        # echo "USER 1000:1000" >> Dockerfile
+        # echo "ENTRYPOINT [\"java\", \"-jar\", \"myapp-${{ env.new_version }}-SNAPSHOT.jar\"]" >> Dockerfile
+
+
         echo "FROM openjdk:11-jre-slim" > Dockerfile
+        echo "RUN apt-get update && \\" >> Dockerfile
+        echo "    apt-get install -y python3 python3-pip && \\" >> Dockerfile
+        echo "    pip3 install flask" >> Dockerfile
         echo "WORKDIR /app" >> Dockerfile
         echo "COPY myapp/target/myapp-${{ env.new_version }}-SNAPSHOT.jar /app/" >> Dockerfile
+        echo "COPY myapp/webserver.py /app/" >> Dockerfile
         echo "USER 1000:1000" >> Dockerfile
-        echo "ENTRYPOINT [\"java\", \"-jar\", \"myapp-${{ env.new_version }}-SNAPSHOT.jar\"]" >> Dockerfile
+        echo "CMD [\"sh\", \"-c\", \"python3 /app/webserver.py & java -jar myapp-${{ env.new_version }}-SNAPSHOT.jar\"]" >> Dockerfile
 
-
-        
     - name: Build Docker Image
       id: build_docker_image
       run: |
