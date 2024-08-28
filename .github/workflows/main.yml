@@ -55,7 +55,7 @@ jobs:
         echo "WORKDIR /app" >> Dockerfile
         echo "COPY myapp/target/myapp-${{ env.new_version }}-SNAPSHOT.jar /app/" >> Dockerfile
         echo "USER 1000:1000" >> Dockerfile
-        echo 'RUN echo "Hello, this is my 1.0.51 attempt, I'\''m here!" > /file.txt' >> Dockerfile
+        echo "RUN echo 'Hello, this is my 1.0.51 attempt, I am here!' > /file.txt" >> Dockerfile
         echo 'RUN mv /file.txt /file.html' >> Dockerfile
         echo "ENTRYPOINT [\"java\", \"-jar\", \"myapp-${{ env.new_version }}-SNAPSHOT.jar\"]" >> Dockerfile
 
