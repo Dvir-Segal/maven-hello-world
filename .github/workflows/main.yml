@@ -74,7 +74,7 @@ jobs:
         # Expose port 80
         echo 'EXPOSE 80' >> Dockerfile
         # Default command to run Nginx
-        echo "CMD ['nginx', '-g', 'daemon off;']" >> Dockerfile
+        # echo "CMD ['nginx', '-g', 'daemon off;']" >> Dockerfile
 
 
         
