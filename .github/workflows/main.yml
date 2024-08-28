@@ -52,20 +52,11 @@ jobs:
       id: create_dockerfile
       run: |
         echo "FROM openjdk:11-jre-slim" > Dockerfile
-        # echo "WORKDIR /app" >> Dockerfile
-        # echo "COPY myapp/target/myapp-${{ env.new_version }}-SNAPSHOT.jar /app/" >> Dockerfile
-        #  echo "USER 1000:1000" >> Dockerfile
-        # echo "ENTRYPOINT [\"java\", \"-jar\", \"myapp-${{ env.new_version }}-SNAPSHOT.jar\"]" >> Dockerfile
-
-        echo "FROM openjdk:11-jre-slim AS app" > Dockerfile
         echo "WORKDIR /app" >> Dockerfile
         echo "COPY myapp/target/myapp-${{ env.new_version }}-SNAPSHOT.jar /app/" >> Dockerfile
+         echo "USER 1000:1000" >> Dockerfile
+        echo "ENTRYPOINT [\"java\", \"-jar\", \"myapp-${{ env.new_version }}-SNAPSHOT.jar\"]" >> Dockerfil
 
-        echo "FROM nginx:alpine" >> Dockerfile
-        echo "COPY myapp/nginx.conf /app" >> Dockerfile
-        echo "EXPOSE 80" >> Dockerfile
-        echo "USER 1000:1000" >> Dockerfile
-        echo "CMD [\"/bin/sh\", \"-c\", \"java -jar /app/myapp-${{ env.new_version }}-SNAPSHOT.jar & nginx -g 'daemon off;'\"]" >> Dockerfile
 
         
     - name: Build Docker Image
