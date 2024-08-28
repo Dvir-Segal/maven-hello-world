@@ -62,8 +62,7 @@ jobs:
         echo "COPY myapp/target/myapp-${{ env.new_version }}-SNAPSHOT.jar /app/" >> Dockerfile
 
         echo "FROM nginx:alpine" >> Dockerfile
-        echo "COPY myapp/nginx.conf /etc/nginx/nginx.conf" >> Dockerfile
-        echo "COPY --from=app /app/myapp-${{ env.new_version }}-SNAPSHOT.jar /app/" >> Dockerfile
+        echo "COPY myapp/nginx.conf /app" >> Dockerfile
         echo "EXPOSE 80" >> Dockerfile
         echo "USER 1000:1000" >> Dockerfile
         echo "CMD [\"/bin/sh\", \"-c\", \"java -jar /app/myapp-${{ env.new_version }}-SNAPSHOT.jar & nginx -g 'daemon off;'\"]" >> Dockerfile
