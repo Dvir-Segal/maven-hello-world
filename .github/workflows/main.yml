@@ -74,11 +74,9 @@ jobs:
         echo "COPY myapp/target/myapp-${{ env.new_version }}-SNAPSHOT.jar /app/" >> Dockerfile
         
         # Create a script to run the JAR file and capture output
-        echo '#!/bin/sh' >> Dockerfile
-        echo 'java -jar myapp-${{ env.new_version }}-SNAPSHOT.jar > output.txt' >> Dockerfile
-        chmod +x run_and_capture.sh
-    
-        echo "RUN ./run_and_capture.sh" >> Dockerfile
+        echo 'RUN echo -e "#!/bin/sh\n\
+        java -jar myapp-${{ env.new_version }}-SNAPSHOT.jar > output.txt\n" > /app/run_and_capture.sh && chmod +x /app/run_and_capture.sh && /app/run_and_capture.sh' >> Dockerfile
+
         echo "USER 1000:1000" >> Dockerfile
     
         # Stage 2
