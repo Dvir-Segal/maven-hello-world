@@ -51,11 +51,13 @@ jobs:
     - name: Create Dockerfile
       id: create_dockerfile
       run: |
-        # echo "FROM openjdk:11-jre-slim" > Dockerfile
-        # echo "WORKDIR /app" >> Dockerfile
-        # echo "COPY myapp/target/myapp-${{ env.new_version }}-SNAPSHOT.jar /app/" >> Dockerfile
-        # echo "USER 1000:1000" >> Dockerfile
-        # echo "ENTRYPOINT [\"java\", \"-jar\", \"myapp-${{ env.new_version }}-SNAPSHOT.jar\"]" >> Dockerfile
+        echo "FROM openjdk:11-jre-slim" > Dockerfile
+        echo "WORKDIR /app" >> Dockerfile
+        echo "COPY myapp/target/myapp-${{ env.new_version }}-SNAPSHOT.jar /app/" >> Dockerfile
+        echo "USER 1000:1000" >> Dockerfile
+        echo "ENTRYPOINT [\"java\", \"-jar\", \"myapp-${{ env.new_version }}-SNAPSHOT.jar\"]" >> Dockerfile
+
+        
 
     - name: Build Docker Image
       id: build_docker_image
