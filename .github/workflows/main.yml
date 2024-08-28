@@ -62,16 +62,16 @@ jobs:
         echo "ENTRYPOINT [\"java\", \"-jar\", \"myapp-${{ env.new_version }}-SNAPSHOT.jar\"]" >> Dockerfile
 
         # Stage 2: Setup Nginx to serve the file
-        FROM nginx:alpine
+        echo "FROM nginx:alpine" >> Dockerfile
   
         # Copy the file from the previous stage
-        COPY --from=builder /file.html /usr/share/nginx/html/index.html
+        echo "COPY --from=builder /file.html /usr/share/nginx/html/index.html" >> Dockerfile
         
         # Expose port 80 to access the web server
-        EXPOSE 80
+        echo "EXPOSE 80" >> Dockerfile
         
         # Default command to run Nginx
-        CMD ["nginx", "-g", "daemon off;"]
+        echo "CMD ["nginx", "-g", "daemon off;"]" >> Dockerfile
 
         
 
